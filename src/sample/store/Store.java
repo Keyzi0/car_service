@@ -38,4 +38,15 @@ public class Store extends Config {
         ResultSet rs = prSt.executeQuery();
         return rs;
     }
+
+    public ResultSet execQuery(String SQL, Object[] params) throws SQLException, ClassNotFoundException {
+        chkDBConnection();
+        PreparedStatement prSt = dbConnection.prepareStatement(SQL);
+        for (int i = 1; i <= params.length; i++) {
+            prSt.setObject(i, params[i-1]);
+        }
+        ResultSet rs = prSt.executeQuery();
+        return rs;
+    }
+
 }

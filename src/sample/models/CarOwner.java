@@ -2,10 +2,9 @@ package sample.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 public class CarOwner {
-    public static final String TABLE_NAME = "clients";
+    public static final String TABLE_NAME = "car_owner";
     public static final String ID = "id";
     public static final String NAME = "name";
     public static final String ADDRESS = "address";

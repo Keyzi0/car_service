@@ -16,11 +16,9 @@ import javafx.scene.control.TableView;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.function.Function;
-
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import sample.Config;
+import sample.models.Car;
 import sample.models.CarOwner;
 import sample.store.Store;
 
@@ -33,9 +31,6 @@ public class operator extends Config {
     private TableView<CarOwner> carOwnerTable;
 
     @FXML
-    private TableColumn<CarOwner, Integer> idCarOwnerColumn;
-
-    @FXML
     private TableColumn<CarOwner, String> nameColumn;
 
     @FXML
@@ -45,6 +40,23 @@ public class operator extends Config {
     private TableColumn<CarOwner, String> addressColumn;
 
     private ObservableList<CarOwner> carOwnerList = FXCollections.observableArrayList();
+
+    @FXML
+    private TableView<Car> carTable;
+
+    @FXML
+    private TableColumn<Car, String> modelColumn;
+
+    @FXML
+    private TableColumn<Car, String> colorColumn;
+
+    @FXML
+    private TableColumn<Car, Integer> yearColumn;
+
+    @FXML
+    private TableColumn<Car, String> signColumn;
+
+    private ObservableList<Car> carList = FXCollections.observableArrayList();
 
     @FXML
     void initialize () throws SQLException, ClassNotFoundException {
@@ -61,6 +73,13 @@ public class operator extends Config {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     CarOwner rowData = row.getItem();
                     System.out.println("Double click on: "+rowData.getName());
+                    try {
+                        fillCarTable(rowData.getId());
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
             return row ;
@@ -77,9 +96,30 @@ public class operator extends Config {
         carOwnerTable.setItems(carOwnerList);
     }
 
-    private void fillCarTable() throws SQLException, ClassNotFoundException {
+    private void fillCarTable(int owner_id) throws SQLException, ClassNotFoundException {
+        carTable.getItems().clear();
+        carTable.setRowFactory( tv -> {
+            TableRow<Car> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Car rowData = row.getItem();
+                    System.out.println("Double click on: "+rowData.getModel());
+                }
+            });
+            return row ;
+        });
+        modelColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("model"));
+        colorColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("color"));
+        yearColumn.setCellValueFactory(new PropertyValueFactory<Car, Integer>("year"));
+        signColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("sign"));
 
+        Store store = Store.getStore();
+        String sql = "SELECT * FROM car Where owner_id = ? ORDER BY id";
+        Object[] params = {owner_id};
+        ResultSet rs = store.execQuery(sql, params);
+        while (rs.next()) {
+            carList.add(Car.getCarFromResultSet(rs));
+        }
+        carTable.setItems(carList);
     }
-
-
 }
