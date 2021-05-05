@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sample.operator.operator">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.operator.operator">
    <children>
       <AnchorPane prefHeight="54.0" prefWidth="1000.0" style="-fx-background-color: #bad8e3;">
          <children>
@@ -27,15 +27,19 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="carOwnerTable" prefHeight="261.0" prefWidth="787.0">
+                        <TableView fx:id="carOwnerTable" layoutX="10.0" layoutY="14.0" prefHeight="261.0" prefWidth="720.0">
                            <columns>
-                              <TableColumn fx:id="idColumn" prefWidth="75.0" text="Column X" />
-                              <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Column X" />
-                              <TableColumn fx:id="passportColumn" prefWidth="75.0" text="Column X" />
-                              <TableColumn fx:id="addressColumn" prefWidth="75.0" text="Column X" />
-                              <TableColumn prefWidth="75.0" text="Column X" />
+                              <TableColumn fx:id="nameColumn" prefWidth="235.0" text="Клиент" />
+                              <TableColumn fx:id="passportColumn" prefWidth="148.0" text="Паспорт" />
+                              <TableColumn fx:id="addressColumn" prefWidth="393.0" text="Адрес" />
                            </columns></TableView>
-                        <TableView fx:id="carTable" layoutY="308.0" prefHeight="261.0" prefWidth="787.0" />
+                        <TableView fx:id="carTable" layoutX="9.0" layoutY="308.0" prefHeight="261.0" prefWidth="720.0">
+                           <columns>
+                              <TableColumn fx:id="modelColumn" prefWidth="280.0" text="Модель" />
+                              <TableColumn fx:id="colorColumn" minWidth="0.0" prefWidth="194.0" text="Цвет" />
+                              <TableColumn fx:id="yearColumn" prefWidth="92.0" text="Год выпуска" />
+                              <TableColumn fx:id="signColumn" prefWidth="153.0" text="Гос номер" />
+                           </columns></TableView>
                      </children>
                   </AnchorPane>
             </content>

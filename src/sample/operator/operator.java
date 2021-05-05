@@ -1,15 +1,22 @@
 package sample.operator;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.function.Function;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -26,7 +33,7 @@ public class operator extends Config {
     private TableView<CarOwner> carOwnerTable;
 
     @FXML
-    private TableColumn<CarOwner, Integer> idColumn;
+    private TableColumn<CarOwner, Integer> idCarOwnerColumn;
 
     @FXML
     private TableColumn<CarOwner, String> nameColumn;
@@ -48,17 +55,31 @@ public class operator extends Config {
     }
 
     private void fillCarOwnerTable() throws SQLException, ClassNotFoundException {
-        idColumn.setCellValueFactory(new PropertyValueFactory<CarOwner, Integer>("id"));
+        carOwnerTable.setRowFactory( tv -> {
+            TableRow<CarOwner> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    CarOwner rowData = row.getItem();
+                    System.out.println("Double click on: "+rowData.getName());
+                }
+            });
+            return row ;
+        });
         nameColumn.setCellValueFactory(new PropertyValueFactory<CarOwner, String>("name"));
         passportColumn.setCellValueFactory(new PropertyValueFactory<CarOwner, String>("passport"));
         addressColumn.setCellValueFactory(new PropertyValueFactory<CarOwner, String>("address"));
 
         Store store = Store.getStore();
-        ResultSet rs = store.execQuery("SELECT * FROM car_owner");
+        ResultSet rs = store.execQuery("SELECT * FROM car_owner ORDER BY id");
         while (rs.next()) {
             carOwnerList.add(CarOwner.getCarOwnerFromResultSet(rs));
         }
         carOwnerTable.setItems(carOwnerList);
     }
+
+    private void fillCarTable() throws SQLException, ClassNotFoundException {
+
+    }
+
 
 }
