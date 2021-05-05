@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -40,6 +41,17 @@
                               <TableColumn fx:id="yearColumn" prefWidth="92.0" text="Год выпуска" />
                               <TableColumn fx:id="signColumn" prefWidth="153.0" text="Гос номер" />
                            </columns></TableView>
+                        <TextField fx:id="addCarOwnerName" layoutX="737.0" layoutY="14.0" prefHeight="25.0" prefWidth="251.0" promptText="ФИО клиента" />
+                        <TextField fx:id="addCarOwnerPassport" layoutX="737.0" layoutY="48.0" prefHeight="25.0" prefWidth="251.0" promptText="Паспорт" />
+                        <TextField fx:id="addCarOwnerAddress" layoutX="737.0" layoutY="83.0" prefHeight="25.0" prefWidth="251.0" promptText="Адрес" />
+                        <TextField fx:id="addCarOwnerAge" layoutX="737.0" layoutY="120.0" prefHeight="25.0" prefWidth="251.0" promptText="Возраст" />
+                        <Button fx:id="addCarOwnerButton" layoutX="828.0" layoutY="156.0" mnemonicParsing="false" text="Добавить" />
+                        <TextField fx:id="addCarModel" layoutX="737.0" layoutY="345.0" prefHeight="25.0" prefWidth="251.0" promptText="Модель" />
+                        <TextField fx:id="addCarColor" layoutX="737.0" layoutY="382.0" prefHeight="25.0" prefWidth="251.0" promptText="Цвет" />
+                        <TextField fx:id="addCarYear" layoutX="737.0" layoutY="418.0" prefHeight="25.0" prefWidth="251.0" promptText="Год выпуска" />
+                        <TextField fx:id="addCarSign" layoutX="737.0" layoutY="457.0" prefHeight="25.0" prefWidth="251.0" promptText="Гос номер" />
+                        <Button fx:id="addCarButton" disable="true" layoutX="828.0" layoutY="495.0" mnemonicParsing="false" text="Добавить" />
+                        <TextField fx:id="addCarClientName" editable="false" layoutX="737.0" layoutY="308.0" prefHeight="25.0" prefWidth="251.0" promptText="Владелец" />
                      </children>
                   </AnchorPane>
             </content>

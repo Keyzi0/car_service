@@ -9,10 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -59,6 +56,39 @@ public class operator extends Config {
     private ObservableList<Car> carList = FXCollections.observableArrayList();
 
     @FXML
+    private TextField addCarOwnerName;
+
+    @FXML
+    private TextField addCarOwnerPassport;
+
+    @FXML
+    private TextField addCarOwnerAddress;
+
+    @FXML
+    private TextField addCarOwnerAge;
+
+    @FXML
+    private Button addCarOwnerButton;
+
+    @FXML
+    private TextField addCarModel;
+
+    @FXML
+    private TextField addCarColor;
+
+    @FXML
+    private TextField addCarYear;
+
+    @FXML
+    private TextField addCarSign;
+
+    @FXML
+    private Button addCarButton;
+
+    @FXML
+    private TextField addCarClientName;
+
+    @FXML
     void initialize () throws SQLException, ClassNotFoundException {
         //TABLE VIEW AND DATA
 
@@ -75,6 +105,10 @@ public class operator extends Config {
                     System.out.println("Double click on: "+rowData.getName());
                     try {
                         fillCarTable(rowData.getId());
+                        addCarClientName.setText(rowData.getName());
+                        if (rowData.getName() != null && rowData.getName() != "") {
+                            addCarButton.setDisable(false);
+                        }
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     } catch (ClassNotFoundException e) {
