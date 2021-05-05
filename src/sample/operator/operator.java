@@ -256,6 +256,8 @@ public class operator extends Config {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(ticket.class.getResource("ticket.fxml")));
         Parent root = loader.load();
+        ticket ticketController = loader.getController();
+        ticketController.setParams(selectedCarOwner, selectedCar);
         stage.setScene(new Scene(root));
         stage.setTitle("Add ticket");
         stage.initModality(Modality.WINDOW_MODAL);

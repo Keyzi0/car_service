@@ -35,12 +35,14 @@ public class ticket {
 
     @FXML
     void initialize () {
-//        ownerName.setText(owner.getName().trim());
-//        carModel.setText(car.getModel().trim());
+
     }
 
     public void setParams(CarOwner owner, Car car) {
         this.owner = owner;
         this.car = car;
+        ownerName.setText(owner.getName().trim());
+        carModel.setText(car.getModel().trim());
+        System.out.println("Ticket setParams ");
     }
 }
