@@ -78,6 +78,14 @@ public class Car {
         this.sign = sign;
     }
 
+    public int getOwnerID() {
+        return owner_id;
+    }
+
+    public void setOwnerID(int owner_id) {
+        this.owner_id = owner_id;
+    }
+
     public static Car getCarFromResultSet(ResultSet rs) throws SQLException {
         Car item = new Car(
                 rs.getInt(ID),
@@ -88,5 +96,14 @@ public class Car {
                 rs.getInt(OWNER_ID)
         );
         return item;
+    }
+
+    public static String getInsertSQL() {
+        return "INSERT INTO " + TABLE_NAME + "(" + MODEL + "," + COLOR + "," + YEAR + "," + SIGN + "," + OWNER_ID + ")" + "VALUES(?,?,?,?,?)";
+    }
+
+    public static Object[] getSQLParams(Car item) {
+        Object[] params = {item.getModel(), item.getColor(), item.getYear(), item.getSign(), item.getOwnerID()};
+        return params;
     }
 }

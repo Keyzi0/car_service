@@ -89,6 +89,7 @@ public class operator extends Config {
     private TextField addCarClientName;
 
     Store store;
+    CarOwner selectedCarOwner;
 
     @FXML
     void initialize () throws SQLException, ClassNotFoundException {
@@ -96,6 +97,16 @@ public class operator extends Config {
         addCarOwnerButton.setOnAction(actionEvent -> {
             try {
                 addNewClient();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+
+        addCarButton.setOnAction(actionEvent -> {
+            try {
+                addNewCar();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             } catch (ClassNotFoundException e) {
@@ -115,6 +126,7 @@ public class operator extends Config {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     CarOwner rowData = row.getItem();
                     System.out.println("Double click on: "+rowData.getName());
+                    selectedCarOwner = rowData;
                     try {
                         fillCarTable(rowData.getId());
                         addCarClientName.setText(rowData.getName());
@@ -192,6 +204,33 @@ public class operator extends Config {
             e.printStackTrace();
         }
         fillCarOwnerTable();
+    }
+
+    private void addNewCar() throws SQLException, ClassNotFoundException {
+        if (addCarModel.getText().isEmpty()) {
+            return;
+        }
+        Car newCar = new Car();
+        newCar.setModel(addCarModel.getText().trim());
+        try {
+            newCar.setYear(Integer.parseInt(addCarYear.getText().trim()));
+        } catch (Exception e) {
+            newCar.setYear(0);
+        }
+        newCar.setColor(addCarColor.getText().trim());
+        newCar.setSign(addCarSign.getText().trim());
+        newCar.setOwnerID(selectedCarOwner.getId());
+        try {
+            store.create(
+                    Car.getInsertSQL(),
+                    Car.getSQLParams(newCar)
+            );
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        fillCarTable(selectedCarOwner.getId());
     }
 
 }
