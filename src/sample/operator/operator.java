@@ -7,16 +7,28 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
+
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import sample.Config;
 import sample.models.Car;
 import sample.models.CarOwner;
+import sample.operator.ticket.ticket;
 import sample.store.Store;
 
 public class operator extends Config {
@@ -90,6 +102,7 @@ public class operator extends Config {
 
     Store store;
     CarOwner selectedCarOwner;
+    Car selectedCar;
 
     @FXML
     void initialize () throws SQLException, ClassNotFoundException {
@@ -162,6 +175,12 @@ public class operator extends Config {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     Car rowData = row.getItem();
                     System.out.println("Double click on: "+rowData.getModel());
+                    selectedCar = rowData;
+                    try {
+                        showAddTicketModal(event);
+                    } catch (IOException  e) {
+                        e.printStackTrace();
+                    }
                 }
             });
             return row ;
@@ -231,6 +250,18 @@ public class operator extends Config {
             e.printStackTrace();
         }
         fillCarTable(selectedCarOwner.getId());
+    }
+
+    private void showAddTicketModal(MouseEvent event) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(ticket.class.getResource("ticket.fxml")));
+        Parent root = loader.load();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Add ticket");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(
+                ((Node)event.getSource()).getScene().getWindow() );
+        stage.show();
     }
 
 }

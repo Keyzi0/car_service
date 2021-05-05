@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="358.0" prefWidth="269.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.operator.ticket.ticket">
+   <children>
+      <TextField fx:id="ownerName" disable="true" layoutX="15.0" layoutY="52.0" prefHeight="25.0" prefWidth="240.0" promptText="ФИО клиента" />
+      <TextField fx:id="carModel" disable="true" layoutX="15.0" layoutY="87.0" prefHeight="25.0" prefWidth="240.0" promptText="Модель и номер авто" />
+      <DatePicker fx:id="income_date" layoutX="15.0" layoutY="124.0" prefHeight="25.0" prefWidth="240.0" promptText="Дата создания задачи" />
+      <ComboBox fx:id="defectCombo" layoutX="15.0" layoutY="162.0" prefHeight="25.0" prefWidth="240.0" promptText="Неисправность" />
+      <ComboBox fx:id="mechanicCombo" layoutX="15.0" layoutY="200.0" prefHeight="25.0" prefWidth="240.0" promptText="Механик" />
+      <ComboBox fx:id="statusCombo" layoutX="15.0" layoutY="238.0" prefHeight="25.0" prefWidth="240.0" promptText="Статус задачи" />
+      <TextField fx:id="price" layoutX="15.0" layoutY="278.0" prefHeight="25.0" prefWidth="240.0" promptText="Итоговая стоимость" />
+      <Button layoutX="98.0" layoutY="319.0" mnemonicParsing="false" text="Сохранить" />
+      <Label layoutX="72.0" layoutY="14.0" text="Создать задачу">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
