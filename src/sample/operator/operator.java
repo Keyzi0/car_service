@@ -88,15 +88,27 @@ public class operator extends Config {
     @FXML
     private TextField addCarClientName;
 
+    Store store;
+
     @FXML
     void initialize () throws SQLException, ClassNotFoundException {
-        //TABLE VIEW AND DATA
+        store = Store.getStore();
+        addCarOwnerButton.setOnAction(actionEvent -> {
+            try {
+                addNewClient();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
 
         // устанавливаем тип и значение которое должно хранится в колонке
         fillCarOwnerTable();
     }
 
     private void fillCarOwnerTable() throws SQLException, ClassNotFoundException {
+        carOwnerTable.getItems().clear();
         carOwnerTable.setRowFactory( tv -> {
             TableRow<CarOwner> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -147,7 +159,6 @@ public class operator extends Config {
         yearColumn.setCellValueFactory(new PropertyValueFactory<Car, Integer>("year"));
         signColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("sign"));
 
-        Store store = Store.getStore();
         String sql = "SELECT * FROM car Where owner_id = ? ORDER BY id";
         Object[] params = {owner_id};
         ResultSet rs = store.execQuery(sql, params);
@@ -156,4 +167,31 @@ public class operator extends Config {
         }
         carTable.setItems(carList);
     }
+
+    private void addNewClient() throws SQLException, ClassNotFoundException {
+        if (addCarOwnerName.getText().isEmpty()) {
+            return;
+        }
+        CarOwner newClient = new CarOwner();
+        newClient.setName(addCarOwnerName.getText().trim());
+        try {
+            newClient.setAge(Integer.parseInt(addCarOwnerAge.getText().trim()));
+        } catch (Exception e) {
+            newClient.setAge(0);
+        }
+        newClient.setPassport(addCarOwnerPassport.getText().trim());
+        newClient.setAddress(addCarOwnerAddress.getText().trim());
+        try {
+            store.create(
+                    CarOwner.getInsertSQL(),
+                    CarOwner.getSQLParams(newClient)
+            );
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        fillCarOwnerTable();
+    }
+
 }

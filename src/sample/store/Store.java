@@ -49,4 +49,15 @@ public class Store extends Config {
         return rs;
     }
 
+    public void create(String SQL, Object[] params) throws SQLException, ClassNotFoundException {
+        this.chkDBConnection();
+        PreparedStatement prSt = dbConnection.prepareStatement(SQL);
+        int i = 1;
+        for (Object val:params) {
+            prSt.setObject(i, val);
+            i++;
+        }
+        prSt.executeUpdate();
+    }
+
 }

@@ -66,6 +66,14 @@ public class CarOwner {
         this.address = address;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public static CarOwner getCarOwnerFromResultSet(ResultSet rs) throws SQLException {
         CarOwner item = new CarOwner();
         item.id = rs.getInt(ID);
@@ -74,5 +82,14 @@ public class CarOwner {
         item.name = rs.getString(NAME);
         item.passport = rs.getString(PASSPORT);
         return item;
+    }
+
+    public static String getInsertSQL() {
+        return "INSERT INTO " + TABLE_NAME + "(" + NAME + "," + PASSPORT + "," + AGE + "," + ADDRESS + ")" + "VALUES(?,?,?,?)";
+    }
+
+    public static Object[] getSQLParams(CarOwner item) {
+        Object[] params = {item.getName(), item.getPassport(), item.getAge(), item.getAddress()};
+        return params;
     }
 }
