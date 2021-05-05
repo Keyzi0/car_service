@@ -54,7 +54,7 @@ public class login {
             Parent root = loader.getRoot();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.showAndWait();
+            stage.show();
         });
     }
 

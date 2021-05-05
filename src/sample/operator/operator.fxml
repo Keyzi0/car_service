@@ -4,12 +4,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.operator.operator">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sample.operator.operator">
    <children>
       <AnchorPane prefHeight="54.0" prefWidth="1000.0" style="-fx-background-color: #bad8e3;">
          <children>
@@ -27,7 +27,15 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="carOwnerTable" prefHeight="261.0" prefWidth="787.0" />
+                        <TableView fx:id="carOwnerTable" prefHeight="261.0" prefWidth="787.0">
+                           <columns>
+                              <TableColumn fx:id="idColumn" prefWidth="75.0" text="Column X" />
+                              <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Column X" />
+                              <TableColumn fx:id="passportColumn" prefWidth="75.0" text="Column X" />
+                              <TableColumn fx:id="addressColumn" prefWidth="75.0" text="Column X" />
+                              <TableColumn prefWidth="75.0" text="Column X" />
+                           </columns></TableView>
+                        <TableView fx:id="carTable" layoutY="308.0" prefHeight="261.0" prefWidth="787.0" />
                      </children>
                   </AnchorPane>
             </content>
