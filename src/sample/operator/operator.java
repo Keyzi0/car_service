@@ -117,6 +117,9 @@ public class operator extends Config {
     @FXML
     private Button taskFilterResetButton;
 
+    @FXML
+    private Button taskRefreshButton;
+
     Store store;
     CarOwnerModel selectedCarOwner;
     CarModel selectedCar;
@@ -144,10 +147,17 @@ public class operator extends Config {
             }
         });
 
-//        taskOwnerCombo.setConverter(ComboItem.converter);
-//        taskMechanicCombo.setConverter(ComboItem.converter);
-//        taskStatusCombo.setConverter(ComboItem.converter);
-//        taskDefectCombo.setConverter(ComboItem.converter);
+        taskFilterResetButton.setOnAction(actionEvent -> {
+            taskOwnerCombo.reset();
+            taskMechanicCombo.reset();
+            taskStatusCombo.reset();
+            taskDefectCombo.reset();
+        });
+
+        taskRefreshButton.setOnAction(actionEvent -> {
+
+        });
+
         taskOwnerCombo.fillFromBD(store, "SELECT id, name FROM car_owner");
         taskMechanicCombo.fillFromBD(store, "SELECT id, name FROM mechanic");
         taskStatusCombo.fillFromBD(store, "SELECT * FROM status");

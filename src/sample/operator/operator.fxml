@@ -77,7 +77,8 @@
                         <DBComboBox fx:id="taskMechanicCombo" layoutX="14.0" layoutY="42.0" prefHeight="25.0" prefWidth="204.0" promptText="Механик" />
                         <DBComboBox fx:id="taskStatusCombo" layoutX="14.0" layoutY="76.0" prefHeight="25.0" prefWidth="204.0" promptText="Статус" />
                         <DBComboBox fx:id="taskDefectCombo" layoutX="14.0" layoutY="110.0" prefHeight="25.0" prefWidth="204.0" promptText="Неисправность" />
-                        <Button fx:id="taskFilterResetButton" layoutX="82.0" layoutY="147.0" mnemonicParsing="false" text="Сбросить" />
+                        <Button fx:id="taskFilterResetButton" layoutX="136.0" layoutY="147.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Сбросить" />
+                        <Button fx:id="taskRefreshButton" layoutX="14.0" layoutY="147.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Обновить" />
                      </children></AnchorPane>
             </content>
           </Tab>

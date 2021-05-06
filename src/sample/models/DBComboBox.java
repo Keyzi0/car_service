@@ -1,5 +1,6 @@
 package sample.models;
 
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
@@ -9,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBComboBox extends ComboBox<ComboItem> {
-
     public DBComboBox() {
         super();
         this.setConverter(ComboItem.converter);
@@ -22,5 +22,10 @@ public class DBComboBox extends ComboBox<ComboItem> {
             list.add(ComboItem.getItemFromResultSet(rs));
         }
         this.setItems(list);
+    }
+
+    public void reset() {
+        this.getSelectionModel().clearSelection();
+        this.valueProperty().set(null);
     }
 }
