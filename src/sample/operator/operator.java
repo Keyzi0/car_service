@@ -162,7 +162,7 @@ public class operator extends Config {
         Store store = Store.getStore();
         ResultSet rs = store.execQuery("SELECT * FROM car_owner ORDER BY id");
         while (rs.next()) {
-            carOwnerList.add(CarOwnerModel.getCarOwnerFromResultSet(rs));
+            carOwnerList.add(CarOwnerModel.getItemFromResultSet(rs));
         }
         carOwnerTable.setItems(carOwnerList);
     }
@@ -194,7 +194,7 @@ public class operator extends Config {
         Object[] params = {owner_id};
         ResultSet rs = store.execQuery(sql, params);
         while (rs.next()) {
-            carList.add(CarModel.getCarFromResultSet(rs));
+            carList.add(CarModel.getItemResultSet(rs));
         }
         carTable.setItems(carList);
     }

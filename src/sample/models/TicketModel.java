@@ -11,6 +11,7 @@ public class TicketModel {
     public static final String CAR_ID = "car_id";
     public static final String MECHANIC_ID = "mechanic_id";
     public static final String DEFECT_ID = "defect_id";
+    public static final String STATUS_ID = "status_id";
     public static final String PRICE = "price";
     public static final String INCOME_DATE = "income_date";
     public static final String FINISH_DATE = "finish_date";
@@ -20,6 +21,7 @@ public class TicketModel {
     private int car_id;
     private int mechanic_id;
     private int defect_id;
+    private int status_id;
     private int price;
     private Date income_date;
     private Date finish_date;
@@ -30,6 +32,7 @@ public class TicketModel {
             int car_id,
             int mechanic_id,
             int defect_id,
+            int status_id,
             int price,
             Date income_date,
             Date finish_date
@@ -39,6 +42,7 @@ public class TicketModel {
         this.car_id = car_id;
         this.mechanic_id = mechanic_id;
         this.defect_id = defect_id;
+        this.status_id = status_id;
         this.price = price;
         this.income_date = income_date;
         this.finish_date = finish_date;
@@ -79,12 +83,18 @@ public class TicketModel {
         this.mechanic_id = mechanic_id;
     }
 
-    public int getDefectID() {
-        return defect_id;
-    }
+    public int getDefectID() { return defect_id; }
 
     public void setDefectID(int defect_id) {
         this.defect_id = defect_id;
+    }
+
+    public int getStatusID() {
+        return status_id;
+    }
+
+    public void setStatusID(int status_id) {
+        this.status_id = status_id;
     }
 
     public int getPrice() {
@@ -104,13 +114,14 @@ public class TicketModel {
     }
 
 
-    public static TicketModel getTicketFromResultSet(ResultSet rs) throws SQLException {
+    public static TicketModel getItemFromResultSet(ResultSet rs) throws SQLException {
         TicketModel item = new TicketModel(
                 rs.getInt(ID),
                 rs.getInt(CAR_OWNER_ID),
                 rs.getInt(CAR_ID),
                 rs.getInt(MECHANIC_ID),
                 rs.getInt(DEFECT_ID),
+                rs.getInt(STATUS_ID),
                 rs.getInt(PRICE),
                 rs.getDate(INCOME_DATE),
                 rs.getDate(FINISH_DATE)

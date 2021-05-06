@@ -74,7 +74,7 @@ public class CarOwnerModel {
         this.age = age;
     }
 
-    public static CarOwnerModel getCarOwnerFromResultSet(ResultSet rs) throws SQLException {
+    public static CarOwnerModel getItemFromResultSet(ResultSet rs) throws SQLException {
         CarOwnerModel item = new CarOwnerModel();
         item.id = rs.getInt(ID);
         item.address = rs.getString(ADDRESS);

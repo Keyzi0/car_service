@@ -86,7 +86,7 @@ public class CarModel {
         this.owner_id = owner_id;
     }
 
-    public static CarModel getCarFromResultSet(ResultSet rs) throws SQLException {
+    public static CarModel getItemResultSet(ResultSet rs) throws SQLException {
         CarModel item = new CarModel(
                 rs.getInt(ID),
                 rs.getString(MODEL),
