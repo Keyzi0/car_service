@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<?import sample.models.DBComboBox?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.operator.operator">
    <children>
       <AnchorPane prefHeight="54.0" prefWidth="1000.0" style="-fx-background-color: #bad8e3;">
@@ -72,10 +73,10 @@
                               <TableColumn fx:id="taskIncomDateColumn" minWidth="0.0" prefWidth="90.0" text="Дата создания" />
                           </columns>
                         </TableView>
-                        <ComboBox fx:id="taskOwnerCombo" layoutX="14.0" layoutY="9.0" prefHeight="25.0" prefWidth="204.0" promptText="Владелец" />
-                        <ComboBox fx:id="taskMechanicCombo" layoutX="14.0" layoutY="42.0" prefHeight="25.0" prefWidth="204.0" promptText="Механик" />
-                        <ComboBox fx:id="taskStatusCombo" layoutX="14.0" layoutY="76.0" prefHeight="25.0" prefWidth="204.0" promptText="Статус" />
-                        <ComboBox fx:id="taskDefectCombo" layoutX="14.0" layoutY="110.0" prefHeight="25.0" prefWidth="204.0" promptText="Неисправность" />
+                        <DBComboBox fx:id="taskOwnerCombo" layoutX="14.0" layoutY="9.0" prefHeight="25.0" prefWidth="204.0" promptText="Владелец" />
+                        <DBComboBox fx:id="taskMechanicCombo" layoutX="14.0" layoutY="42.0" prefHeight="25.0" prefWidth="204.0" promptText="Механик" />
+                        <DBComboBox fx:id="taskStatusCombo" layoutX="14.0" layoutY="76.0" prefHeight="25.0" prefWidth="204.0" promptText="Статус" />
+                        <DBComboBox fx:id="taskDefectCombo" layoutX="14.0" layoutY="110.0" prefHeight="25.0" prefWidth="204.0" promptText="Неисправность" />
                         <Button fx:id="taskFilterResetButton" layoutX="82.0" layoutY="147.0" mnemonicParsing="false" text="Сбросить" />
                      </children></AnchorPane>
             </content>

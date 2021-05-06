@@ -28,6 +28,8 @@ import javafx.stage.Stage;
 import sample.Config;
 import sample.models.CarModel;
 import sample.models.CarOwnerModel;
+import sample.models.ComboItem;
+import sample.models.DBComboBox;
 import sample.operator.ticket.ticket;
 import sample.store.Store;
 
@@ -100,6 +102,21 @@ public class operator extends Config {
     @FXML
     private TextField addCarClientName;
 
+    @FXML
+    private DBComboBox taskOwnerCombo;
+
+    @FXML
+    private DBComboBox taskMechanicCombo;
+
+    @FXML
+    private DBComboBox taskStatusCombo;
+
+    @FXML
+    private DBComboBox taskDefectCombo;
+
+    @FXML
+    private Button taskFilterResetButton;
+
     Store store;
     CarOwnerModel selectedCarOwner;
     CarModel selectedCar;
@@ -127,6 +144,14 @@ public class operator extends Config {
             }
         });
 
+        taskOwnerCombo.setConverter(ComboItem.converter);
+        taskMechanicCombo.setConverter(ComboItem.converter);
+        taskStatusCombo.setConverter(ComboItem.converter);
+        taskDefectCombo.setConverter(ComboItem.converter);
+        taskOwnerCombo.fillFromBD(store, "SELECT id, name FROM car_owner");
+        taskMechanicCombo.fillFromBD(store, "SELECT id, name FROM mechanic");
+        taskStatusCombo.fillFromBD(store, "SELECT * FROM status");
+        taskDefectCombo.fillFromBD(store, "SELECT * FROM defect");
         // устанавливаем тип и значение которое должно хранится в колонке
         fillCarOwnerTable();
     }
