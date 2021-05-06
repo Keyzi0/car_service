@@ -22,13 +22,13 @@ public class ticket {
     private TextField carModel;
 
     @FXML
-    private ComboBox<ComboItem> defectCombo;
+    private DBComboBox defectCombo;
 
     @FXML
-    private ComboBox<ComboItem> mechanicCombo;
+    private DBComboBox mechanicCombo;
 
     @FXML
-    private ComboBox<ComboItem> statusCombo;
+    private DBComboBox statusCombo;
 
     @FXML
     private TextField price;
