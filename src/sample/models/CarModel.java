@@ -3,7 +3,7 @@ package sample.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Car {
+public class CarModel {
     public static final String TABLE_NAME = "car";
     public static final String ID = "id";
     public static final String MODEL = "model";
@@ -19,7 +19,7 @@ public class Car {
     private String sign;
     private int owner_id;
 
-    public Car(
+    public CarModel(
             int id,
             String model,
             String color,
@@ -35,7 +35,7 @@ public class Car {
         this.owner_id = owner_id;
     }
 
-    public Car() {
+    public CarModel() {
     }
 
     public int getId() {
@@ -86,8 +86,8 @@ public class Car {
         this.owner_id = owner_id;
     }
 
-    public static Car getCarFromResultSet(ResultSet rs) throws SQLException {
-        Car item = new Car(
+    public static CarModel getCarFromResultSet(ResultSet rs) throws SQLException {
+        CarModel item = new CarModel(
                 rs.getInt(ID),
                 rs.getString(MODEL),
                 rs.getString(COLOR),
@@ -102,7 +102,7 @@ public class Car {
         return "INSERT INTO " + TABLE_NAME + "(" + MODEL + "," + COLOR + "," + YEAR + "," + SIGN + "," + OWNER_ID + ")" + "VALUES(?,?,?,?,?)";
     }
 
-    public static Object[] getSQLParams(Car item) {
+    public static Object[] getSQLParams(CarModel item) {
         Object[] params = {item.getModel(), item.getColor(), item.getYear(), item.getSign(), item.getOwnerID()};
         return params;
     }

@@ -26,8 +26,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sample.Config;
-import sample.models.Car;
-import sample.models.CarOwner;
+import sample.models.CarModel;
+import sample.models.CarOwnerModel;
 import sample.operator.ticket.ticket;
 import sample.store.Store;
 
@@ -37,35 +37,35 @@ public class operator extends Config {
     private Tab carNavTab;
 
     @FXML
-    private TableView<CarOwner> carOwnerTable;
+    private TableView<CarOwnerModel> carOwnerTable;
 
     @FXML
-    private TableColumn<CarOwner, String> nameColumn;
+    private TableColumn<CarOwnerModel, String> nameColumn;
 
     @FXML
-    private TableColumn<CarOwner, String> passportColumn;
+    private TableColumn<CarOwnerModel, String> passportColumn;
 
     @FXML
-    private TableColumn<CarOwner, String> addressColumn;
+    private TableColumn<CarOwnerModel, String> addressColumn;
 
-    private ObservableList<CarOwner> carOwnerList = FXCollections.observableArrayList();
-
-    @FXML
-    private TableView<Car> carTable;
+    private ObservableList<CarOwnerModel> carOwnerList = FXCollections.observableArrayList();
 
     @FXML
-    private TableColumn<Car, String> modelColumn;
+    private TableView<CarModel> carTable;
 
     @FXML
-    private TableColumn<Car, String> colorColumn;
+    private TableColumn<CarModel, String> modelColumn;
 
     @FXML
-    private TableColumn<Car, Integer> yearColumn;
+    private TableColumn<CarModel, String> colorColumn;
 
     @FXML
-    private TableColumn<Car, String> signColumn;
+    private TableColumn<CarModel, Integer> yearColumn;
 
-    private ObservableList<Car> carList = FXCollections.observableArrayList();
+    @FXML
+    private TableColumn<CarModel, String> signColumn;
+
+    private ObservableList<CarModel> carList = FXCollections.observableArrayList();
 
     @FXML
     private TextField addCarOwnerName;
@@ -101,8 +101,8 @@ public class operator extends Config {
     private TextField addCarClientName;
 
     Store store;
-    CarOwner selectedCarOwner;
-    Car selectedCar;
+    CarOwnerModel selectedCarOwner;
+    CarModel selectedCar;
 
     @FXML
     void initialize () throws SQLException, ClassNotFoundException {
@@ -134,10 +134,10 @@ public class operator extends Config {
     private void fillCarOwnerTable() throws SQLException, ClassNotFoundException {
         carOwnerTable.getItems().clear();
         carOwnerTable.setRowFactory( tv -> {
-            TableRow<CarOwner> row = new TableRow<>();
+            TableRow<CarOwnerModel> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    CarOwner rowData = row.getItem();
+                    CarOwnerModel rowData = row.getItem();
                     System.out.println("Double click on: "+rowData.getName());
                     selectedCarOwner = rowData;
                     try {
@@ -155,14 +155,14 @@ public class operator extends Config {
             });
             return row ;
         });
-        nameColumn.setCellValueFactory(new PropertyValueFactory<CarOwner, String>("name"));
-        passportColumn.setCellValueFactory(new PropertyValueFactory<CarOwner, String>("passport"));
-        addressColumn.setCellValueFactory(new PropertyValueFactory<CarOwner, String>("address"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<CarOwnerModel, String>("name"));
+        passportColumn.setCellValueFactory(new PropertyValueFactory<CarOwnerModel, String>("passport"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<CarOwnerModel, String>("address"));
 
         Store store = Store.getStore();
         ResultSet rs = store.execQuery("SELECT * FROM car_owner ORDER BY id");
         while (rs.next()) {
-            carOwnerList.add(CarOwner.getCarOwnerFromResultSet(rs));
+            carOwnerList.add(CarOwnerModel.getCarOwnerFromResultSet(rs));
         }
         carOwnerTable.setItems(carOwnerList);
     }
@@ -170,10 +170,10 @@ public class operator extends Config {
     private void fillCarTable(int owner_id) throws SQLException, ClassNotFoundException {
         carTable.getItems().clear();
         carTable.setRowFactory( tv -> {
-            TableRow<Car> row = new TableRow<>();
+            TableRow<CarModel> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    Car rowData = row.getItem();
+                    CarModel rowData = row.getItem();
                     System.out.println("Double click on: "+rowData.getModel());
                     selectedCar = rowData;
                     try {
@@ -185,16 +185,16 @@ public class operator extends Config {
             });
             return row ;
         });
-        modelColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("model"));
-        colorColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("color"));
-        yearColumn.setCellValueFactory(new PropertyValueFactory<Car, Integer>("year"));
-        signColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("sign"));
+        modelColumn.setCellValueFactory(new PropertyValueFactory<CarModel, String>("model"));
+        colorColumn.setCellValueFactory(new PropertyValueFactory<CarModel, String>("color"));
+        yearColumn.setCellValueFactory(new PropertyValueFactory<CarModel, Integer>("year"));
+        signColumn.setCellValueFactory(new PropertyValueFactory<CarModel, String>("sign"));
 
         String sql = "SELECT * FROM car Where owner_id = ? ORDER BY id";
         Object[] params = {owner_id};
         ResultSet rs = store.execQuery(sql, params);
         while (rs.next()) {
-            carList.add(Car.getCarFromResultSet(rs));
+            carList.add(CarModel.getCarFromResultSet(rs));
         }
         carTable.setItems(carList);
     }
@@ -203,7 +203,7 @@ public class operator extends Config {
         if (addCarOwnerName.getText().isEmpty()) {
             return;
         }
-        CarOwner newClient = new CarOwner();
+        CarOwnerModel newClient = new CarOwnerModel();
         newClient.setName(addCarOwnerName.getText().trim());
         try {
             newClient.setAge(Integer.parseInt(addCarOwnerAge.getText().trim()));
@@ -214,8 +214,8 @@ public class operator extends Config {
         newClient.setAddress(addCarOwnerAddress.getText().trim());
         try {
             store.create(
-                    CarOwner.getInsertSQL(),
-                    CarOwner.getSQLParams(newClient)
+                    CarOwnerModel.getInsertSQL(),
+                    CarOwnerModel.getSQLParams(newClient)
             );
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -229,7 +229,7 @@ public class operator extends Config {
         if (addCarModel.getText().isEmpty()) {
             return;
         }
-        Car newCar = new Car();
+        CarModel newCar = new CarModel();
         newCar.setModel(addCarModel.getText().trim());
         try {
             newCar.setYear(Integer.parseInt(addCarYear.getText().trim()));
@@ -241,8 +241,8 @@ public class operator extends Config {
         newCar.setOwnerID(selectedCarOwner.getId());
         try {
             store.create(
-                    Car.getInsertSQL(),
-                    Car.getSQLParams(newCar)
+                    CarModel.getInsertSQL(),
+                    CarModel.getSQLParams(newCar)
             );
         } catch (SQLException throwables) {
             throwables.printStackTrace();

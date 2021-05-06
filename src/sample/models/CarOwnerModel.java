@@ -3,7 +3,7 @@ package sample.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CarOwner {
+public class CarOwnerModel {
     public static final String TABLE_NAME = "car_owner";
     public static final String ID = "id";
     public static final String NAME = "name";
@@ -17,7 +17,7 @@ public class CarOwner {
     private String address;
     private int age;
 
-    public CarOwner(
+    public CarOwnerModel(
             int id,
             String name,
             String passport,
@@ -31,7 +31,7 @@ public class CarOwner {
         this.age = age;
     }
 
-    public CarOwner() {
+    public CarOwnerModel() {
     }
 
     public int getId() {
@@ -74,8 +74,8 @@ public class CarOwner {
         this.age = age;
     }
 
-    public static CarOwner getCarOwnerFromResultSet(ResultSet rs) throws SQLException {
-        CarOwner item = new CarOwner();
+    public static CarOwnerModel getCarOwnerFromResultSet(ResultSet rs) throws SQLException {
+        CarOwnerModel item = new CarOwnerModel();
         item.id = rs.getInt(ID);
         item.address = rs.getString(ADDRESS);
         item.age = rs.getInt(AGE);
@@ -88,7 +88,7 @@ public class CarOwner {
         return "INSERT INTO " + TABLE_NAME + "(" + NAME + "," + PASSPORT + "," + AGE + "," + ADDRESS + ")" + "VALUES(?,?,?,?)";
     }
 
-    public static Object[] getSQLParams(CarOwner item) {
+    public static Object[] getSQLParams(CarOwnerModel item) {
         Object[] params = {item.getName(), item.getPassport(), item.getAge(), item.getAddress()};
         return params;
     }

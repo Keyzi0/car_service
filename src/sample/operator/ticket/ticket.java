@@ -1,11 +1,12 @@
 package sample.operator.ticket;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import sample.models.Car;
-import sample.models.CarOwner;
+import sample.models.CarModel;
+import sample.models.CarOwnerModel;
+import sample.store.Store;
 
 public class ticket {
 
@@ -14,9 +15,6 @@ public class ticket {
 
     @FXML
     private TextField carModel;
-
-    @FXML
-    private DatePicker income_date;
 
     @FXML
     private ComboBox<?> defectCombo;
@@ -30,19 +28,29 @@ public class ticket {
     @FXML
     private TextField price;
 
-    CarOwner owner;
-    Car car;
+    @FXML
+    private Button saveButton;
+
+    Store store;
+    CarOwnerModel owner;
+    CarModel car;
 
     @FXML
     void initialize () {
-
+        saveButton.setOnAction(actionEvent -> {
+            addTicket();
+        });
     }
 
-    public void setParams(CarOwner owner, Car car) {
+    public void setParams(CarOwnerModel owner, CarModel car) {
         this.owner = owner;
         this.car = car;
         ownerName.setText(owner.getName().trim());
         carModel.setText(car.getModel().trim());
         System.out.println("Ticket setParams ");
+    }
+
+    private void addTicket() {
+
     }
 }
