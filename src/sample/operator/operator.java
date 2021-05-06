@@ -144,10 +144,10 @@ public class operator extends Config {
             }
         });
 
-        taskOwnerCombo.setConverter(ComboItem.converter);
-        taskMechanicCombo.setConverter(ComboItem.converter);
-        taskStatusCombo.setConverter(ComboItem.converter);
-        taskDefectCombo.setConverter(ComboItem.converter);
+//        taskOwnerCombo.setConverter(ComboItem.converter);
+//        taskMechanicCombo.setConverter(ComboItem.converter);
+//        taskStatusCombo.setConverter(ComboItem.converter);
+//        taskDefectCombo.setConverter(ComboItem.converter);
         taskOwnerCombo.fillFromBD(store, "SELECT id, name FROM car_owner");
         taskMechanicCombo.fillFromBD(store, "SELECT id, name FROM mechanic");
         taskStatusCombo.fillFromBD(store, "SELECT * FROM status");

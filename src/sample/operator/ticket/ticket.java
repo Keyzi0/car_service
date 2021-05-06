@@ -54,9 +54,6 @@ public class ticket {
                 e.printStackTrace();
             }
         });
-        defectCombo.setConverter(ComboItem.converter);
-        statusCombo.setConverter(ComboItem.converter);
-        mechanicCombo.setConverter(ComboItem.converter);
         defectCombo.fillFromBD(store, "SELECT * FROM defect");
         statusCombo.fillFromBD(store, "SELECT * FROM status");
         mechanicCombo.fillFromBD(store, "SELECT id, name FROM mechanic");

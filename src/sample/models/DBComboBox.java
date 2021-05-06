@@ -10,6 +10,11 @@ import java.sql.SQLException;
 
 public class DBComboBox extends ComboBox<ComboItem> {
 
+    public DBComboBox() {
+        super();
+        this.setConverter(ComboItem.converter);
+    }
+
     public void fillFromBD(Store store, String SQL) throws SQLException, ClassNotFoundException {
         ObservableList<ComboItem> list = FXCollections.observableArrayList();
         ResultSet rs = store.execQuery(SQL);
