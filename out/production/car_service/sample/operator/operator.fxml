@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -56,9 +57,27 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Заявки">
+          <Tab text="Задачи">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView layoutX="227.0" layoutY="9.0" prefHeight="633.0" prefWidth="767.0">
+                          <columns>
+                            <TableColumn fx:id="taskIdColumn" prefWidth="40.0" text="№" />
+                            <TableColumn fx:id="taskOwnerColumn" prefWidth="133.0" text="Владелец" />
+                              <TableColumn fx:id="taskCarColumn" minWidth="4.0" prefWidth="102.0" text="Модель" />
+                              <TableColumn fx:id="taskMechanicColumn" prefWidth="118.0" text="Механик" />
+                              <TableColumn fx:id="taskDefectColumn" prefWidth="142.0" text="Неисправность" />
+                              <TableColumn fx:id="taskStatusColumn" prefWidth="141.0" text="Статус" />
+                              <TableColumn fx:id="taskIncomDateColumn" minWidth="0.0" prefWidth="90.0" text="Дата создания" />
+                          </columns>
+                        </TableView>
+                        <ComboBox fx:id="taskOwnerCombo" layoutX="14.0" layoutY="9.0" prefHeight="25.0" prefWidth="204.0" promptText="Владелец" />
+                        <ComboBox fx:id="taskMechanicCombo" layoutX="14.0" layoutY="42.0" prefHeight="25.0" prefWidth="204.0" promptText="Механик" />
+                        <ComboBox fx:id="taskStatusCombo" layoutX="14.0" layoutY="76.0" prefHeight="25.0" prefWidth="204.0" promptText="Статус" />
+                        <ComboBox fx:id="taskDefectCombo" layoutX="14.0" layoutY="110.0" prefHeight="25.0" prefWidth="204.0" promptText="Неисправность" />
+                        <Button fx:id="taskFilterResetButton" layoutX="82.0" layoutY="147.0" mnemonicParsing="false" text="Сбросить" />
+                     </children></AnchorPane>
             </content>
           </Tab>
         </tabs>
