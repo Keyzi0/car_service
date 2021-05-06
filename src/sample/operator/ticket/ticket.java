@@ -57,9 +57,9 @@ public class ticket {
         defectCombo.setConverter(ComboItem.converter);
         statusCombo.setConverter(ComboItem.converter);
         mechanicCombo.setConverter(ComboItem.converter);
-        fillCombo(defectCombo, "SELECT * FROM defect");
-        fillCombo(statusCombo, "SELECT * FROM status");
-        fillCombo(mechanicCombo, "SELECT id, name FROM mechanic");
+        defectCombo.fillFromBD(store, "SELECT * FROM defect");
+        statusCombo.fillFromBD(store, "SELECT * FROM status");
+        mechanicCombo.fillFromBD(store, "SELECT id, name FROM mechanic");
     }
 
     public void setParams(CarOwnerModel owner, CarModel car) {
@@ -83,12 +83,4 @@ public class ticket {
         store.create(TicketModel.getInsertSQL(), TicketModel.getSQLParams(newTicket));
     }
 
-    private void fillCombo(ComboBox combo, String SQL) throws SQLException, ClassNotFoundException {
-        ObservableList<ComboItem> list = FXCollections.observableArrayList();
-        ResultSet rs = store.execQuery(SQL);
-        while (rs.next()) {
-            list.add(ComboItem.getItemFromResultSet(rs));
-        }
-        combo.setItems(list);
-    }
 }
