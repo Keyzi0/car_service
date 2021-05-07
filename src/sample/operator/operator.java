@@ -19,6 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import sample.Config;
 import sample.models.*;
 import sample.operator.ticket.ticket;
@@ -235,7 +236,8 @@ public class operator extends Config {
                     System.out.println("Double click on: "+rowData.getModel());
                     selectedCar = rowData;
                     try {
-                        showAddTicketModal(event);
+                        ticket controller = showTicketModal(event);
+                        controller.setParams(selectedCarOwner.getId(),selectedCarOwner.getName(), selectedCar.getId(), selectedCar.getModel());
                     } catch (IOException  e) {
                         e.printStackTrace();
                     }
@@ -310,24 +312,46 @@ public class operator extends Config {
         fillCarTable(selectedCarOwner.getId());
     }
 
-    private void showAddTicketModal(MouseEvent event) throws IOException {
+    private ticket showTicketModal(MouseEvent event) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(ticket.class.getResource("ticket.fxml")));
         Parent root = loader.load();
         ticket ticketController = loader.getController();
-        ticketController.setParams(selectedCarOwner, selectedCar);
         stage.setScene(new Scene(root));
         stage.setTitle("Add ticket");
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(
-                ((Node)event.getSource()).getScene().getWindow() );
+        stage.initOwner(((Node)event.getSource()).getScene().getWindow());
         stage.show();
+        return  ticketController;
     }
 
     private void fillTicketTable() throws SQLException, ClassNotFoundException {
         ticketTable.getItems().clear();
         ticketTable.setRowFactory( tv -> {
             TableRow<TicketViewModel> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    TicketViewModel rowData = row.getItem();
+                    try {
+                        ticket controller = showTicketModal(event);
+                        controller.setParams(
+                                rowData.getCar_owner_id(),
+                                rowData.getCar_owner(),
+                                rowData.getCar_id(),
+                                rowData.getCar()
+                        );
+                        // int defect_id, int mechanic_id, int status_id, Integer income_price
+                        controller.setSelection(
+                                rowData.getDefect_id(),
+                                rowData.getMechanic_id(),
+                                rowData.getStatus_id(),
+                                rowData.getPrice()
+                        );
+                    } catch (IOException  e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
             return row ;
         });
         taskIdColumn.setCellValueFactory(new PropertyValueFactory<TicketViewModel, Integer>("id"));

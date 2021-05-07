@@ -1,6 +1,5 @@
 package sample.models;
 
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
@@ -8,6 +7,7 @@ import sample.store.Store;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class DBComboBox extends ComboBox<ComboItem> {
     public DBComboBox() {
@@ -27,5 +27,18 @@ public class DBComboBox extends ComboBox<ComboItem> {
     public void reset() {
         this.getSelectionModel().clearSelection();
         this.valueProperty().set(null);
+    }
+
+    public void setByID(int id) {
+//        tabs.forEach((tab) -> {
+//            System.out.println("Stuff with "+tab);
+//        });
+        AtomicInteger idx = new AtomicInteger();
+        this.getItems().forEach((elem) -> {
+            if (elem.getID() == id) {
+                this.getSelectionModel().select(idx.get());
+            }
+            idx.set(idx.get() + 1);
+        });
     }
 }

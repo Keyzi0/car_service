@@ -37,8 +37,10 @@ public class ticket {
     private Button saveButton;
 
     Store store;
-    CarOwnerModel selectedOwner;
-    CarModel selectedCar;
+    int owner_id;
+    String owner_name;
+    int car_id;
+    String car_model;
 
     @FXML
     void initialize () throws SQLException, ClassNotFoundException {
@@ -59,12 +61,21 @@ public class ticket {
         mechanicCombo.fillFromBD(store, "SELECT id, name FROM mechanic");
     }
 
-    public void setParams(CarOwnerModel owner, CarModel car) {
-        this.selectedOwner = owner;
-        this.selectedCar = car;
-        ownerName.setText(owner.getName().trim());
-        carModel.setText(car.getModel().trim());
-        System.out.println("Ticket setParams ");
+    public void setParams(int owner_id, String owner_name, int car_id, String car_model) {
+        this.owner_id = owner_id;
+        this.owner_name = owner_name;
+        this.car_id = car_id;
+        this.car_model = car_model;
+        ownerName.setText(owner_name);
+        carModel.setText(car_model);
+        System.out.println("Ticket setParams");
+    }
+
+    public void setSelection(int defect_id, int mechanic_id, int status_id, Integer income_price) {
+        defectCombo.setByID(defect_id);
+        mechanicCombo.setByID(mechanic_id);
+        statusCombo.setByID(status_id);
+        price.setText(income_price.toString());
     }
 
     private void addTicket() throws SQLException, ClassNotFoundException {
@@ -72,8 +83,8 @@ public class ticket {
             return;
         }
         TicketModel newTicket = new TicketModel();
-        newTicket.setCarOwnerID(selectedOwner.getId());
-        newTicket.setCarID(selectedCar.getId());
+        newTicket.setCarOwnerID(owner_id);
+        newTicket.setCarID(car_id);
         newTicket.setDefectID(defectCombo.getValue().getID());
         newTicket.setMechanicID(mechanicCombo.getValue().getID());
         newTicket.setStatusID(statusCombo.getValue().getID());
