@@ -19,9 +19,7 @@ public class Store extends Config {
     }
 
     private void chkDBConnection() throws SQLException, ClassNotFoundException {
-        if (dbConnection.isClosed()) {
-            this.getDbConnection();
-        }
+        dbConnection.prepareStatement("SELECT 1");
     }
 
     public ResultSet execQuery(String SQL) throws SQLException, ClassNotFoundException {
