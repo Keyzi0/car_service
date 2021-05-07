@@ -96,9 +96,9 @@ public class ticket {
         newTicket.setPrice(Integer.parseInt(price.getText().isEmpty()?"0":price.getText()));
         if (isEditMode) {
             newTicket.setId(ticket_id);
-            store.create(TicketModel.getUpdateSQL(), TicketModel.getSQLUpdateParams(newTicket));
+            store.createOrUpdate(TicketModel.getUpdateSQL(), TicketModel.getSQLUpdateParams(newTicket));
         } else {
-            store.create(TicketModel.getInsertSQL(), TicketModel.getSQLInsertParams(newTicket));
+            store.createOrUpdate(TicketModel.getInsertSQL(), TicketModel.getSQLInsertParams(newTicket));
         }
     }
 

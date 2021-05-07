@@ -38,7 +38,7 @@ public class CarOwnerModel {
         return id;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -91,5 +91,22 @@ public class CarOwnerModel {
     public static Object[] getSQLParams(CarOwnerModel item) {
         Object[] params = {item.getName(), item.getPassport(), item.getAge(), item.getAddress()};
         return params;
+    }
+
+    public static String getUpdateSQL() {
+        return "UPDATE  " + TABLE_NAME + " SET " + NAME + " = ?," + PASSPORT + " = ?," + AGE+ "  = ?," + ADDRESS + "  = ? WHERE id = ?";
+    }
+
+    public static Object[] getSQLUpdateParams(CarOwnerModel item) {
+        Object[] params = { item.getName(), item.getPassport(), item.getAge(), item.getAddress(), item.getId()};
+        return params;
+    }
+
+    public static String getFullDeleteSQL() {
+        return " DELETE co, c, t " +
+                " FROM car_owner co " +
+                " LEFT JOIN car c ON co.id = c.owner_id " +
+                " LEFT JOIN ticket t ON co.id = t.car_owner_id " +
+                " WHERE co.id=?";
     }
 }

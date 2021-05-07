@@ -19,7 +19,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import sample.Config;
 import sample.models.*;
 import sample.operator.ticket.ticket;
@@ -291,7 +290,7 @@ public class operator extends Config {
         newClient.setPassport(addCarOwnerPassport.getText().trim());
         newClient.setAddress(addCarOwnerAddress.getText().trim());
         try {
-            store.create(
+            store.createOrUpdate(
                     CarOwnerModel.getInsertSQL(),
                     CarOwnerModel.getSQLParams(newClient)
             );
@@ -318,7 +317,7 @@ public class operator extends Config {
         newCar.setSign(addCarSign.getText().trim());
         newCar.setOwnerID(selectedCarOwner.getId());
         try {
-            store.create(
+            store.createOrUpdate(
                     CarModel.getInsertSQL(),
                     CarModel.getSQLParams(newCar)
             );

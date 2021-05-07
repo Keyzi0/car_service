@@ -24,7 +24,7 @@ public class Main extends Application {
         stage.setScene(new Scene(root));
         stage.showAndWait();
 
-//        Parent root = FXMLLoader.load(getClass().getResource("/sample/login/login.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("/sample/login/admin.fxml"));
 //        primaryStage.setTitle("Hello World");
 //        primaryStage.setScene(new Scene(root, 1000, 750));
 //        primaryStage.show();

@@ -33,7 +33,7 @@ public class Store extends Config {
         return rs;
     }
 
-    public void create(String SQL, Object[] params) throws SQLException, ClassNotFoundException {
+    public void createOrUpdate(String SQL, Object[] params) throws SQLException, ClassNotFoundException {
         PreparedStatement prSt = getDbConnection().prepareStatement(SQL);
         int i = 1;
         for (Object val:params) {
@@ -42,7 +42,5 @@ public class Store extends Config {
         }
         prSt.executeUpdate();
     }
-
-
 
 }

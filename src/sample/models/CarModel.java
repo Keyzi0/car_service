@@ -42,7 +42,7 @@ public class CarModel {
         return id;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -104,6 +104,15 @@ public class CarModel {
 
     public static Object[] getSQLParams(CarModel item) {
         Object[] params = {item.getModel(), item.getColor(), item.getYear(), item.getSign(), item.getOwnerID()};
+        return params;
+    }
+
+    public static String getUpdateSQL() {
+        return "UPDATE  " + TABLE_NAME + " SET " + MODEL + " = ?," + COLOR + " = ?," + YEAR + "  = ?," + SIGN + "  = ? WHERE id = ?";
+    }
+
+    public static Object[] getSQLUpdateParams(CarModel item) {
+        Object[] params = { item.getModel(), item.getColor(), item.getYear(), item.getSign(), item.getId()};
         return params;
     }
 }
