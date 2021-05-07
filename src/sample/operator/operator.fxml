@@ -21,7 +21,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button layoutX="934.0" layoutY="15.0" mnemonicParsing="false" text="Выход" />
+            <Button fx:id="logoutButton" layoutX="934.0" layoutY="15.0" mnemonicParsing="false" text="Выход" />
          </children>
       </AnchorPane>
       <TabPane layoutY="54.0" prefHeight="698.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
