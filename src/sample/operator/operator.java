@@ -347,13 +347,35 @@ public class operator extends Config {
 
 
 
-        String sql = "SELECT * FROM ticketView ORDER BY id";
+        String sql = "SELECT * FROM ticketView";
+
+        String filters = "";
+
+        filters = addFilterFromCombo(filters, taskOwnerCombo, "car_owner_id");
+        filters = addFilterFromCombo(filters, taskMechanicCombo, "mechanic_id");
+        filters = addFilterFromCombo(filters, taskDefectCombo, "defect_id");
+        filters = addFilterFromCombo(filters, taskStatusCombo, "status_id");
+
+        sql = sql + filters;
 
         ResultSet rs = store.execQuery(sql);
         while (rs.next()) {
             ticketList.add(TicketViewModel.getItemFromResultSet(rs));
         }
         ticketTable.setItems(ticketList);
+    }
+
+    private String addFilterFromCombo(String filter, DBComboBox combo, String SQLFieldName) {
+        if (combo.getValue() == null) {
+            return filter;
+        }
+        if (filter.length()>0) {
+            filter = filter + " and ";
+        } else {
+            filter = " where ";
+        }
+        filter = filter + SQLFieldName + " = " + combo.getValue().getID();
+        return filter;
     }
 
 }
