@@ -70,7 +70,7 @@
                               <TableColumn fx:id="taskMechanicColumn" prefWidth="118.0" text="Механик" />
                               <TableColumn fx:id="taskDefectColumn" prefWidth="142.0" text="Неисправность" />
                               <TableColumn fx:id="taskStatusColumn" prefWidth="141.0" text="Статус" />
-                              <TableColumn fx:id="taskIncomDateColumn" minWidth="0.0" prefWidth="90.0" text="Дата создания" />
+                              <TableColumn fx:id="taskIncomeDateColumn" minWidth="0.0" prefWidth="90.0" text="Дата создания" />
                           </columns>
                         </TableView>
                          <DBComboBox fx:id="taskOwnerCombo" layoutX="14.0" layoutY="31.0" prefHeight="25.0" prefWidth="204.0" promptText=""/>

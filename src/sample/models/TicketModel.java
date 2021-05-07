@@ -89,9 +89,7 @@ public class TicketModel {
         this.defect_id = defect_id;
     }
 
-    public int getStatusID() {
-        return status_id;
-    }
+    public int getStatusID() { return status_id; }
 
     public void setStatusID(int status_id) {
         this.status_id = status_id;
@@ -130,11 +128,11 @@ public class TicketModel {
     }
 
     public static String getInsertSQL() {
-        return "INSERT INTO " + TABLE_NAME + "(" + CAR_OWNER_ID + "," + CAR_ID + "," + MECHANIC_ID + "," + DEFECT_ID + "," + PRICE + "," + INCOME_DATE + ")" + "VALUES(?,?,?,?,?,SYSDATE())";
+        return "INSERT INTO " + TABLE_NAME + "(" + CAR_OWNER_ID + "," + CAR_ID + "," + MECHANIC_ID + "," + DEFECT_ID + "," + PRICE+ "," + STATUS_ID + "," + INCOME_DATE  + ")" + "VALUES(?,?,?,?,?,?,SYSDATE())";
     }
 
     public static Object[] getSQLParams(TicketModel item) {
-        Object[] params = {item.getCarOwnerID(), item.getCarID(), item.getMechanicID(), item.getDefectID(), item.getPrice()};
+        Object[] params = {item.getCarOwnerID(), item.getCarID(), item.getMechanicID(), item.getDefectID(), item.getPrice(), item.getStatusID()};
         return params;
     }
 }

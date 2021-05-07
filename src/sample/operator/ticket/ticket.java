@@ -76,7 +76,8 @@ public class ticket {
         newTicket.setCarID(selectedCar.getId());
         newTicket.setDefectID(defectCombo.getValue().getID());
         newTicket.setMechanicID(mechanicCombo.getValue().getID());
-        newTicket.setDefectID(defectCombo.getValue().getID());
+        newTicket.setStatusID(statusCombo.getValue().getID());
+        newTicket.setPrice(Integer.parseInt(price.getText()));
         store.create(TicketModel.getInsertSQL(), TicketModel.getSQLParams(newTicket));
     }
 
