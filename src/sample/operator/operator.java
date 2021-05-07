@@ -1,14 +1,7 @@
 package sample.operator;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -140,7 +133,7 @@ public class operator extends Config {
     private TableColumn<TicketViewModel, String> taskStatusColumn;
 
     @FXML
-    private TableColumn<TicketViewModel, Date> taskIncomDateColumn;
+    private TableColumn<TicketViewModel, Date> taskIncomeDateColumn;
 
     private ObservableList<TicketViewModel> ticketList = FXCollections.observableArrayList();
 
@@ -343,7 +336,7 @@ public class operator extends Config {
         taskMechanicColumn.setCellValueFactory(new PropertyValueFactory<TicketViewModel, String>("mechanic"));
         taskDefectColumn.setCellValueFactory(new PropertyValueFactory<TicketViewModel, String>("defect"));
         taskStatusColumn.setCellValueFactory(new PropertyValueFactory<TicketViewModel, String>("status"));
-        taskIncomDateColumn.setCellValueFactory(new PropertyValueFactory<TicketViewModel, Date>("income_date"));
+        taskIncomeDateColumn.setCellValueFactory(new PropertyValueFactory<TicketViewModel, Date>("income_date"));
 
 
 
