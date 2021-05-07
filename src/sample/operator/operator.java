@@ -336,7 +336,6 @@ public class operator extends Config {
         Parent root = loader.load();
         ticket ticketController = loader.getController();
         stage.setScene(new Scene(root));
-        stage.setTitle("Add ticket");
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(((Node)event.getSource()).getScene().getWindow());
         stage.show();

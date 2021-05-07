@@ -2,6 +2,7 @@ package sample.operator.ticket;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.models.*;
@@ -10,6 +11,9 @@ import sample.store.Store;
 import java.sql.SQLException;
 
 public class ticket {
+
+    @FXML
+    private Label formName;
 
     @FXML
     private TextField ownerName;
@@ -33,7 +37,8 @@ public class ticket {
     private Button saveButton;
 
     Store store;
-    int ticket_id = -1; // инициализация значения, в БД не может быть отрицательного индекса
+    Boolean isEditMode = false;
+    int ticket_id;
     int owner_id;
     String owner_name;
     int car_id;
@@ -69,6 +74,8 @@ public class ticket {
     }
 
     public void setDetails(int ticket_id, int defect_id, int mechanic_id, int status_id, Integer income_price) {
+        formName.setText("Изменить задачу");
+        this.isEditMode = true;
         this.ticket_id = ticket_id;
         defectCombo.setByID(defect_id);
         mechanicCombo.setByID(mechanic_id);
@@ -87,7 +94,7 @@ public class ticket {
         newTicket.setMechanicID(mechanicCombo.getValue().getID());
         newTicket.setStatusID(statusCombo.getValue().getID());
         newTicket.setPrice(Integer.parseInt(price.getText().isEmpty()?"0":price.getText()));
-        if (ticket_id >=0) {
+        if (isEditMode) {
             newTicket.setId(ticket_id);
             store.create(TicketModel.getUpdateSQL(), TicketModel.getSQLUpdateParams(newTicket));
         } else {
