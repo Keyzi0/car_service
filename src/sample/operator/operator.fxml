@@ -62,7 +62,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="227.0" layoutY="9.0" prefHeight="633.0" prefWidth="767.0">
+                        <TableView fx:id="ticketTable" layoutX="227.0" layoutY="9.0" prefHeight="633.0" prefWidth="767.0">
                           <columns>
                             <TableColumn fx:id="taskIdColumn" prefWidth="40.0" text="№" />
                             <TableColumn fx:id="taskOwnerColumn" prefWidth="133.0" text="Владелец" />

@@ -19,6 +19,7 @@ import javafx.scene.control.*;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Objects;
 
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,10 +27,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sample.Config;
-import sample.models.CarModel;
-import sample.models.CarOwnerModel;
-import sample.models.ComboItem;
-import sample.models.DBComboBox;
+import sample.models.*;
 import sample.operator.ticket.ticket;
 import sample.store.Store;
 
@@ -120,6 +118,32 @@ public class operator extends Config {
     @FXML
     private Button taskRefreshButton;
 
+    @FXML
+    private TableView<TicketViewModel> ticketTable;
+
+    @FXML
+    private TableColumn<TicketViewModel, Integer> taskIdColumn;
+
+    @FXML
+    private TableColumn<TicketViewModel, String> taskOwnerColumn;
+
+    @FXML
+    private TableColumn<TicketViewModel, String> taskCarColumn;
+
+    @FXML
+    private TableColumn<TicketViewModel, String> taskMechanicColumn;
+
+    @FXML
+    private TableColumn<TicketViewModel, String> taskDefectColumn;
+
+    @FXML
+    private TableColumn<TicketViewModel, String> taskStatusColumn;
+
+    @FXML
+    private TableColumn<TicketViewModel, Date> taskIncomDateColumn;
+
+    private ObservableList<TicketViewModel> ticketList = FXCollections.observableArrayList();
+
     Store store;
     CarOwnerModel selectedCarOwner;
     CarModel selectedCar;
@@ -155,7 +179,13 @@ public class operator extends Config {
         });
 
         taskRefreshButton.setOnAction(actionEvent -> {
-
+            try {
+                fillTicketTable();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         });
 
         taskOwnerCombo.fillFromBD(store, "SELECT id, name FROM car_owner");
@@ -299,6 +329,31 @@ public class operator extends Config {
         stage.initOwner(
                 ((Node)event.getSource()).getScene().getWindow() );
         stage.show();
+    }
+
+    private void fillTicketTable() throws SQLException, ClassNotFoundException {
+        ticketTable.getItems().clear();
+        ticketTable.setRowFactory( tv -> {
+            TableRow<TicketViewModel> row = new TableRow<>();
+            return row ;
+        });
+        taskIdColumn.setCellValueFactory(new PropertyValueFactory<TicketViewModel, Integer>("id"));
+        taskOwnerColumn.setCellValueFactory(new PropertyValueFactory<TicketViewModel, String>("car_owner"));
+        taskCarColumn.setCellValueFactory(new PropertyValueFactory<TicketViewModel, String>("car"));
+        taskMechanicColumn.setCellValueFactory(new PropertyValueFactory<TicketViewModel, String>("mechanic"));
+        taskDefectColumn.setCellValueFactory(new PropertyValueFactory<TicketViewModel, String>("defect"));
+        taskStatusColumn.setCellValueFactory(new PropertyValueFactory<TicketViewModel, String>("status"));
+        taskIncomDateColumn.setCellValueFactory(new PropertyValueFactory<TicketViewModel, Date>("income_date"));
+
+
+
+        String sql = "SELECT * FROM ticketView ORDER BY id";
+
+        ResultSet rs = store.execQuery(sql);
+        while (rs.next()) {
+            ticketList.add(TicketViewModel.getItemFromResultSet(rs));
+        }
+        ticketTable.setItems(ticketList);
     }
 
 }
