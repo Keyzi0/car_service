@@ -340,8 +340,8 @@ public class operator extends Config {
                                 rowData.getCar_id(),
                                 rowData.getCar()
                         );
-                        // int defect_id, int mechanic_id, int status_id, Integer income_price
-                        controller.setSelection(
+                        controller.setDetails(
+                                rowData.getId(),
                                 rowData.getDefect_id(),
                                 rowData.getMechanic_id(),
                                 rowData.getStatus_id(),

@@ -16,7 +16,7 @@
       <DBComboBox fx:id="statusCombo" layoutX="15.0" layoutY="199.0" prefHeight="25.0" prefWidth="240.0" promptText="Статус задачи" />
       <TextField fx:id="price" layoutX="15.0" layoutY="239.0" prefHeight="25.0" prefWidth="240.0" promptText="Итоговая стоимость" />
       <Button fx:id="saveButton" layoutX="98.0" layoutY="289.0" mnemonicParsing="false" text="Сохранить" />
-      <Label layoutX="72.0" layoutY="14.0" text="Создать задачу">
+      <Label fx:id="formName" layoutX="72.0" layoutY="14.0" text="Создать задачу">
          <font>
             <Font size="18.0" />
          </font>

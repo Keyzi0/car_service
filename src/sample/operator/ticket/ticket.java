@@ -1,16 +1,12 @@
 package sample.operator.ticket;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.models.*;
 import sample.store.Store;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ticket {
@@ -37,6 +33,7 @@ public class ticket {
     private Button saveButton;
 
     Store store;
+    int ticket_id = -1; // инициализация значения, в БД не может быть отрицательного индекса
     int owner_id;
     String owner_name;
     int car_id;
@@ -47,7 +44,7 @@ public class ticket {
         store = Store.getStore();
         saveButton.setOnAction(actionEvent -> {
             try {
-                addTicket();
+                editTicket();
                 Stage stage = (Stage) saveButton.getScene().getWindow();
                 stage.close();
             } catch (SQLException throwables) {
@@ -71,14 +68,15 @@ public class ticket {
         System.out.println("Ticket setParams");
     }
 
-    public void setSelection(int defect_id, int mechanic_id, int status_id, Integer income_price) {
+    public void setDetails(int ticket_id, int defect_id, int mechanic_id, int status_id, Integer income_price) {
+        this.ticket_id = ticket_id;
         defectCombo.setByID(defect_id);
         mechanicCombo.setByID(mechanic_id);
         statusCombo.setByID(status_id);
         price.setText(income_price.toString());
     }
 
-    private void addTicket() throws SQLException, ClassNotFoundException {
+    private void editTicket() throws SQLException, ClassNotFoundException {
         if ( defectCombo.getValue() == null || mechanicCombo.getValue() == null || defectCombo.getValue() == null) {
             return;
         }
@@ -89,7 +87,12 @@ public class ticket {
         newTicket.setMechanicID(mechanicCombo.getValue().getID());
         newTicket.setStatusID(statusCombo.getValue().getID());
         newTicket.setPrice(Integer.parseInt(price.getText().isEmpty()?"0":price.getText()));
-        store.create(TicketModel.getInsertSQL(), TicketModel.getSQLParams(newTicket));
+        if (ticket_id >=0) {
+            newTicket.setId(ticket_id);
+            store.create(TicketModel.getUpdateSQL(), TicketModel.getSQLUpdateParams(newTicket));
+        } else {
+            store.create(TicketModel.getInsertSQL(), TicketModel.getSQLInsertParams(newTicket));
+        }
     }
 
 }

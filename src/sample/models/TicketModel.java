@@ -55,7 +55,7 @@ public class TicketModel {
         return id;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -131,8 +131,17 @@ public class TicketModel {
         return "INSERT INTO " + TABLE_NAME + "(" + CAR_OWNER_ID + "," + CAR_ID + "," + MECHANIC_ID + "," + DEFECT_ID + "," + PRICE+ "," + STATUS_ID + "," + INCOME_DATE  + ")" + "VALUES(?,?,?,?,?,?,SYSDATE())";
     }
 
-    public static Object[] getSQLParams(TicketModel item) {
+    public static Object[] getSQLInsertParams(TicketModel item) {
         Object[] params = {item.getCarOwnerID(), item.getCarID(), item.getMechanicID(), item.getDefectID(), item.getPrice(), item.getStatusID()};
+        return params;
+    }
+
+    public static String getUpdateSQL() {
+        return "UPDATE  " + TABLE_NAME + " SET " + MECHANIC_ID + " = ?," + DEFECT_ID + " = ?," + PRICE+ "  = ?," + STATUS_ID + "  = ? WHERE id = ?";
+    }
+
+    public static Object[] getSQLUpdateParams(TicketModel item) {
+        Object[] params = { item.getMechanicID(), item.getDefectID(), item.getPrice(), item.getStatusID(), item.getId()};
         return params;
     }
 }
