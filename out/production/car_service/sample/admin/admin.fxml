@@ -57,27 +57,17 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Задачи">
+          <Tab text="Аналитика">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="ticketTable" layoutX="227.0" layoutY="9.0" prefHeight="633.0" prefWidth="767.0">
+                        <TableView fx:id="analyticsTable" layoutX="227.0" layoutY="9.0" prefHeight="633.0" prefWidth="767.0">
                           <columns>
-                            <TableColumn fx:id="taskIdColumn" prefWidth="40.0" text="№" />
-                            <TableColumn fx:id="taskOwnerColumn" prefWidth="133.0" text="Владелец" />
-                              <TableColumn fx:id="taskCarColumn" minWidth="4.0" prefWidth="102.0" text="Модель" />
-                              <TableColumn fx:id="taskMechanicColumn" prefWidth="118.0" text="Механик" />
-                              <TableColumn fx:id="taskDefectColumn" prefWidth="142.0" text="Неисправность" />
-                              <TableColumn fx:id="taskStatusColumn" prefWidth="141.0" text="Статус" />
-                              <TableColumn fx:id="taskIncomeDateColumn" minWidth="0.0" prefWidth="90.0" text="Дата создания" />
+                            <TableColumn fx:id="analyticsNameColumn" prefWidth="246.0" text="ФИО" />
+                              <TableColumn fx:id="analyticsCountColumn" minWidth="4.0" prefWidth="517.0" text="Общая стоимость работ" />
                           </columns>
                         </TableView>
-                         <Button fx:id="taskFilterResetButton" layoutX="136.0" layoutY="223.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Сбросить" />
-                         <Button fx:id="taskRefreshButton" layoutX="16.0" layoutY="223.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Обновить" />
-                        <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="57.0" text="Владелец" />
-                        <Label layoutX="14.0" layoutY="63.0" text="Механик" />
-                        <Label layoutX="14.0" layoutY="114.0" text="Статус задачи" />
-                        <Label layoutX="14.0" layoutY="167.0" text="Неисправность" />
+                        <Button fx:id="analyticsMechanicButton" layoutX="38.0" layoutY="9.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="153.0" text="Механики" />
                      </children></AnchorPane>
             </content>
           </Tab>

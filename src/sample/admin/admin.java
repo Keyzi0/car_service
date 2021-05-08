@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import sample.Config;
+import sample.analytics.MechanicWorkPrice;
 import sample.models.CarModel;
 import sample.models.CarOwnerModel;
 import sample.models.TicketViewModel;
@@ -96,36 +97,21 @@ public class admin extends Config {
     private TextField editCarClientName;
 
     @FXML
-    private Button taskFilterResetButton;
-
-    @FXML
-    private Button taskRefreshButton;
-
-    @FXML
-    private TableView<TicketViewModel> ticketTable;
-
-    @FXML
-    private TableColumn<TicketViewModel, Integer> taskIdColumn;
-
-    @FXML
-    private TableColumn<TicketViewModel, String> taskOwnerColumn;
-
-    @FXML
-    private TableColumn<TicketViewModel, String> taskCarColumn;
-
-    @FXML
-    private TableColumn<TicketViewModel, String> taskMechanicColumn;
-
-    @FXML
-    private TableColumn<TicketViewModel, String> taskDefectColumn;
-
-    @FXML
-    private TableColumn<TicketViewModel, String> taskStatusColumn;
-
-    @FXML
-    private TableColumn<TicketViewModel, Date> taskIncomeDateColumn;
+    private Button analyticsMechanicButton;
 
     private ObservableList<TicketViewModel> ticketList = FXCollections.observableArrayList();
+
+    @FXML
+    private TableView<MechanicWorkPrice> analyticsTable;
+
+    @FXML
+    private TableColumn<MechanicWorkPrice, String> analyticsNameColumn;
+
+    @FXML
+    private TableColumn<MechanicWorkPrice, String> analyticsCountColumn;
+
+
+    private ObservableList<MechanicWorkPrice> mechanicWorkPriceList = FXCollections.observableArrayList();
 
     Store store;
     CarOwnerModel selectedCarOwner;
@@ -204,6 +190,15 @@ public class admin extends Config {
             }
         });
 
+        analyticsMechanicButton.setOnAction(actionEvent -> {
+            try {
+            fillAnalyticsTable();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
         fillCarOwnerTable();
     }
 
@@ -271,6 +266,17 @@ public class admin extends Config {
             carList.add(CarModel.getItemResultSet(rs));
         }
         carTable.setItems(carList);
+    }
+
+    private void fillAnalyticsTable() throws SQLException, ClassNotFoundException {
+        analyticsTable.getItems().clear();
+        analyticsNameColumn.setCellValueFactory(new PropertyValueFactory<MechanicWorkPrice, String>("name"));
+        analyticsCountColumn.setCellValueFactory(new PropertyValueFactory<MechanicWorkPrice, String>("work_price"));
+        ResultSet rs = store.execQuery(MechanicWorkPrice.getSQL());
+        while (rs.next()) {
+            mechanicWorkPriceList.add(MechanicWorkPrice.getItemResultSet(rs));
+        }
+        analyticsTable.setItems(mechanicWorkPriceList);
     }
 
 }
