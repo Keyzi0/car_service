@@ -300,6 +300,7 @@ public class operator extends Config {
             e.printStackTrace();
         }
         fillCarOwnerTable();
+        taskOwnerCombo.fillFromBD(store, "SELECT id, name FROM car_owner");
     }
 
     private void addNewCar() throws SQLException, ClassNotFoundException {
