@@ -10,6 +10,10 @@ import java.io.IOException;
 
 public class Main extends Application {
 
+    public void main() {
+
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader();

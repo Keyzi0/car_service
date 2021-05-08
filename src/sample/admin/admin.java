@@ -196,6 +196,7 @@ public class admin extends Config {
                 carTable.getItems().clear();
                 selectedCarOwner = null;
                 selectedCar = null;
+                fillCarOwnerTable();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             } catch (ClassNotFoundException e) {
