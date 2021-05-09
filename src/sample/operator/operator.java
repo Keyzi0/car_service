@@ -392,6 +392,7 @@ public class operator extends Config {
             });
             return row ;
         });
+        // Описание заполнения колонок таблицы задач
         taskIdColumn.setCellValueFactory(new PropertyValueFactory<TicketViewModel, Integer>("id"));
         taskOwnerColumn.setCellValueFactory(new PropertyValueFactory<TicketViewModel, String>("car_owner"));
         taskCarColumn.setCellValueFactory(new PropertyValueFactory<TicketViewModel, String>("car"));
@@ -400,23 +401,27 @@ public class operator extends Config {
         taskStatusColumn.setCellValueFactory(new PropertyValueFactory<TicketViewModel, String>("status"));
         taskIncomeDateColumn.setCellValueFactory(new PropertyValueFactory<TicketViewModel, Date>("income_date"));
 
-
-
+        // Основной запрос списка задач
         String sql = "SELECT * FROM ticketView";
 
+        // добавление фильтров списка задач по выбранным значением из комбо полей
         String filters = "";
-
         filters = addFilterFromCombo(filters, taskOwnerCombo, "car_owner_id");
         filters = addFilterFromCombo(filters, taskMechanicCombo, "mechanic_id");
         filters = addFilterFromCombo(filters, taskDefectCombo, "defect_id");
         filters = addFilterFromCombo(filters, taskStatusCombo, "status_id");
 
+        // собираем полный запрос
         sql = sql + filters;
-
+        // вызываем метод получение данных по собранному запросу
         ResultSet rs = store.execQuery(sql);
+        // последовательно обходим все строки результата запроса и с помощью метода getItemFromResultSet
+        // создаем объекты задач которые используются в качестве источника данных для строк таблицы задач
+        // и добавляем их в ticketList(список объектов)
         while (rs.next()) {
             ticketList.add(TicketViewModel.getItemFromResultSet(rs));
         }
+        // указываем ticketList как источник данных для таблицы ticketTable
         ticketTable.setItems(ticketList);
     }
     // создание SQL запроса для заполнения таблицы задач(с учетом выбранных фильтров)
