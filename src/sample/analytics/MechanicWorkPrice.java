@@ -3,6 +3,7 @@ package sample.analytics;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+// модель для аналитики по выработке механиков
 public class MechanicWorkPrice {
     public static final String NAME = "name";
     public static final String WORK_PRICE = "work_price";

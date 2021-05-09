@@ -144,9 +144,15 @@ public class operator extends Config {
     CarOwnerModel selectedCarOwner;
     CarModel selectedCar;
 
+    /*
+        метод initialize запускается при инициализации объекта класса контроллера
+        необходимый контроллер указывается в fxml файле в свойстве "fx:controller"
+     */
     @FXML
     void initialize () throws SQLException, ClassNotFoundException {
+        // создание объекта класса store, для работы с БД
         store = Store.getStore();
+        // описываем поведение при нажатии на кнопку addCarOwnerButton
         addCarOwnerButton.setOnAction(actionEvent -> {
             try {
                 addNewClient();
@@ -199,27 +205,40 @@ public class operator extends Config {
             }
         });
 
+        // заполняем выпадающие списки в комбо
         taskOwnerCombo.fillFromBD(store, "SELECT id, name FROM car_owner");
         taskMechanicCombo.fillFromBD(store, "SELECT id, name FROM mechanic");
         taskStatusCombo.fillFromBD(store, "SELECT * FROM status");
         taskDefectCombo.fillFromBD(store, "SELECT * FROM defect");
-        // устанавливаем тип и значение которое должно хранится в колонке
+
+        // заполняем таблицу владельцев автомобилей
         fillCarOwnerTable();
     }
 
     private void fillCarOwnerTable() throws SQLException, ClassNotFoundException {
+        // очищаем таблицу владельцев, иначе новые данные допишутся после существующих
         carOwnerTable.getItems().clear();
+        // описываем поведение при создании строки таблицы(эти действия будут выполнятся при создании каждой строки)
         carOwnerTable.setRowFactory( tv -> {
+            // создаем новый объект типа строка таблицы и указываем какой тип данных будет в нем храниться
             TableRow<CarOwnerModel> row = new TableRow<>();
+            // описываем поведение при клике по строке таблицы
             row.setOnMouseClicked(event -> {
+                // нас интересует двойной клик по непустой строке
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    // при двойном клике возьмем данные из строки по которой кликнули
                     CarOwnerModel rowData = row.getItem();
+                    // вывод в консоль, просто чтобы видеть что все работает
                     System.out.println("Double click on: "+rowData.getName());
+                    // сохраним выбранного владельца строки, чтобы знать на ком сейчас стоит выделение
                     selectedCarOwner = rowData;
                     try {
+                        // мы знаем по кому кликнули и получаем для данного владельца список связанных с ним авто
                         fillCarTable(rowData.getId());
+                        // присвоим значение имени владельца в поле владельца авто в блоке добавления нового автомобиля
                         addCarClientName.setText(rowData.getName());
                         if (rowData.getName() != null && rowData.getName() != "") {
+                            // если поле владельца авто не пустое то разблокируем кнопку добавления автомобиля
                             addCarButton.setDisable(false);
                         }
                     } catch (SQLException throwables) {
@@ -231,6 +250,7 @@ public class operator extends Config {
             });
             return row ;
         });
+        // связываем колонки таблицы с соответствующими данными в модели владельца автомобиля
         nameColumn.setCellValueFactory(new PropertyValueFactory<CarOwnerModel, String>("name"));
         passportColumn.setCellValueFactory(new PropertyValueFactory<CarOwnerModel, String>("passport"));
         addressColumn.setCellValueFactory(new PropertyValueFactory<CarOwnerModel, String>("address"));
@@ -329,7 +349,7 @@ public class operator extends Config {
         }
         fillCarTable(selectedCarOwner.getId());
     }
-
+    // отображение модального окна создания задачи
     private ticket showTicketModal(MouseEvent event) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(ticket.class.getResource("ticket.fxml")));
@@ -342,6 +362,7 @@ public class operator extends Config {
         return  ticketController;
     }
 
+    // заполнение таблицы задач
     private void fillTicketTable() throws SQLException, ClassNotFoundException {
         ticketTable.getItems().clear();
         ticketTable.setRowFactory( tv -> {
@@ -398,7 +419,7 @@ public class operator extends Config {
         }
         ticketTable.setItems(ticketList);
     }
-
+    // создание SQL запроса для заполнения таблицы задач(с учетом выбранных фильтров)
     private String addFilterFromCombo(String filter, DBComboBox combo, String SQLFieldName) {
         if (combo.getValue() == null) {
             return filter;
